@@ -1,0 +1,26 @@
+1. 查看資料分布
+1) 對數值資料補值，看用mean還是眾數
+2) 對類別資料補值
+對缺失值補"unknown"
+data['Animal'].fillna('Unknown', inplace=True)
+如果類別的總數太多，可以考慮把缺失值補成眾數
+# 統計每個類別的出現次數
+counts = data['Animal'].value_counts()
+# 找出出現次數最多的類別
+most_common = counts.index[0]
+# 補
+data['Animal'].fillna(most_common, inplace=True)
+
+2. 對數值、類別資料進行處理
+如果數值的範圍過大，可能會影響模型的準確度。因此，可以使用縮放方法將數值轉換為更小的範圍。常用的縮放方法：
+1) 最小最大縮放（Min-Max scaling）：將數值縮放到指定的最小值和最大值之間。公式如下：
+x' = (x - x_min) / (x_max - x_min)
+2) 標準化（Standardization）：將數值轉換為標準分布。公式如下：
+x' = (x - μ) / σ
+3) 對數縮放：將數值轉換為對數值。通常在數值具有高度偏態時使用。
+4) 去除偏態：使用轉換方法（如 Box-Cox 轉換）將數值轉換為偏態較小的分布。
+
+3. 看要不要用PCA
+
+
+4. 特徵選擇

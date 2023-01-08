@@ -1,0 +1,39 @@
+* 資料說明
+0~66402(共66403)
+train總筆數: 0~46481(共46482)
+　在excel看含有column name，所以旁邊的index看是46482；但python不會把column name算成一個row => data_features[0:46482] 即可
+　在data_features.csv裡面，train到key=0~key=46481
+
+test總筆數: 0~19920 (共19921)
+　在data_features.csv裡面，他從key=46481+1開始
+
+train缺失值
+　非都市土地使用編定: 46482
+　非都市土地使用分區: 46477
+　車位類別: 32035
+　備註: 25610
+　建築完成年月: 9643
+
+============
+data_features.csv
+　train 和 test 合併後的 features，無 label
+　處理部分欄位
+　　移除 ["備註", "土地區段位置/建物區段門牌", "編號", "建築完成年月", "車位移轉總面積(平方公尺)", "車位類別", "非都市土地使用分區", "非都市土地使用編定"]: 可以用表格 移除欄位、原因
+　　low_use_electricity: %" 轉為 float
+　　總樓層數: 移除"層"，把中文數字轉阿拉伯數字
+　　交易年月日: 取出月份，重新命名為交易月份，無缺值，轉成int型態
+　　
+
+data_features2.csv (去除Key和Index後，有28欄位)
+　處理數值資料
+　　補值
+　　對數縮放: '土地移轉總面積(平方公尺)', '建物移轉總面積(平方公尺)', 'nearest_tarin_station_distance', 'income_avg', 'income_var', 'low_use_electricity'
+　　normalization: 'lat', 'lng'
+　處理類別資料
+　　補值
+
+data_features3.csv (去除Key和Index後，有33欄位)
+　　處理類別資料
+　　　one hot encoding: 都市土地使用分區
+　　　binary encoding: 建物現況格局-隔間、有無管理組織
+　　　label encoding: '主要建材','主要用途','交易標的', '建物型態','移轉層次','鄉鎮市區','location_type','nearest_tarin_station'

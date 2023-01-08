@@ -1,0 +1,10 @@
+* 期末project_code
+請將期末kaggle競賽所使用到的程式碼包起來，做成一個zip檔，內容程式檔案名稱不限。
+程式碼未上傳者，會沒有期末成績，請注意!!!
+檔案上傳格式: studentid_final_code.zip (e.g. 310704000_final_code.zip)
+
+* 期末project_ppt
+請將期末kaggle競賽所使用到的分析與建模步驟說明出來，做成一個pdf檔，內容不限。
+ppt未上傳者，會沒有 30% 期末成績，請注意!!!
+檔案上傳格式: studentid_final_ppt.pdf (e.g. 310704000_final_ppt.pdf)
+
