@@ -12,13 +12,13 @@ train_feature = pd.read_csv("data/train_feature.csv",
                           encoding="big5")
 
 # 把label加回來
-train_label2 = pd.read_csv("data/train_label2.csv",
+train_label_EDA = pd.read_csv("data/train_label_EDA.csv",
                           encoding="big5")
 
-df1 = pd.merge(train_feature, train_label2, on = "Index")
-df2 = pd.merge(train_features2, train_label2, on = "Index")
+df1 = pd.merge(train_feature, train_label_EDA, on = "Index")
+df2 = pd.merge(train_features2, train_label_EDA, on = "Index")
 # =============================================================================
-del data_features2, train_label2, train_features2, train_feature
+del data_features2, train_label_EDA, train_features2, train_feature
 
 
 # 數值資料

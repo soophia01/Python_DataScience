@@ -17,7 +17,6 @@ data_features2 = pd.read_csv("data/data_features2.csv",
 
 
 
-
 # 處理缺失值: 類別欄位
 # null_data_features2 = data_features2.isnull().sum()
 # =============================================================================

@@ -213,5 +213,5 @@ for column in int_columns_norm:
 data_features.to_csv('data/data_features2.csv', index = False, encoding = "big5")
 
 
-train_label.to_csv('data/train_label2.csv', index = False, encoding = "big5")
+train_label.to_csv('data/train_label_EDA.csv', index = False, encoding = "big5")
 # =============================================================================
