@@ -53,7 +53,7 @@ data_features3 = data_features2
 
 # one hot encoding
 # =============================================================================
-data_features3 = pd.get_dummies(data_features3, columns=['都市土地使用分區'])
+# data_features3 = pd.get_dummies(data_features3, columns=['都市土地使用分區'])
 # =============================================================================
 
 
@@ -76,7 +76,8 @@ labeled_data = data_features3[['主要建材',
                               '移轉層次',
                               '鄉鎮市區',
                               'location_type',
-                              'nearest_tarin_station']]
+                              'nearest_tarin_station',
+                              '都市土地使用分區']]
 labeled_data = labeled_data.apply(le.fit_transform)
 
 # 把轉換後的欄位存回原本的df
