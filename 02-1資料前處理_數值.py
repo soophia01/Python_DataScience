@@ -10,13 +10,15 @@ from sklearn.preprocessing import StandardScaler
 data_features = pd.read_csv("data/data_features.csv",
                           encoding="big5")
 data_features = data_features.rename(columns = {data_features.columns[0]: "Key"})
+
+train_label = pd.read_csv("data/train_label.csv",
+                          encoding = "big5")
 # =============================================================================
 
 
 
 # 處理缺失值: 數值欄位
 # =============================================================================
-
 # 平均: 'num_of_bus_stations_in_100m', 'income_avg', 'income_var', 'low_use_electricity'
 # ---------------------------------------
 null_columns_mean = ['num_of_bus_stations_in_100m', 'income_avg', 'income_var', 'low_use_electricity']
@@ -55,6 +57,13 @@ for column in int_columns:
     # plt.hist(data)
     plt.xlim(data.min(), data.max())
     plt.show()
+    
+    
+# train_label
+price_per_ping = pd.Series(train_label.iloc[:, 1])
+sns.distplot(price_per_ping)
+plt.xlim(price_per_ping.min(), price_per_ping.max())
+plt.show()
 # =============================================================================
 
 
@@ -85,7 +94,31 @@ for column in int_columns_log:
     sns.distplot(pd.Series(data_features[column+'_log']))
     plt.xlim(data_log1p.min(), data_log1p.max())
     plt.show()
+    
+    
+# price_per_ping
+# ------------------------
+data_log1p = np.log1p(price_per_ping)
+train_label.insert(loc = 2, column = 'price_per_ping_log', value = data_log1p)
+
+                   
+sns.distplot(data_log1p)
+plt.xlim(data_log1p.min(), data_log1p.max())
+plt.show()
+
+
+
+# data_log1p = np.log1p(data_log1p)
+# train_label.insert(loc = 2, column = 'price_per_ping_log_2', value = data_log1p)
+
+                   
+# sns.distplot(data_log1p)
+# plt.xlim(data_log1p.min(), data_log1p.max())
+# plt.show()
+# ------------------------
 # =============================================================================
+
+
 # 再取一次
 # =============================================================================
 int_columns_log = ['土地移轉總面積(平方公尺)_log', 'income_avg_log', 'income_var_log']
@@ -135,6 +168,19 @@ for column in int_columns_log:
 #     sns.distplot(pd.Series(data_features[column+'_sd']))
 #     plt.xlim(data_sd.min(), data_sd.max())
 #     plt.show()
+
+# price_per_ping
+# ------------------------
+price_per_ping = data_log1p.values.reshape(-1, 1)
+scaler = StandardScaler()
+price_per_ping_sd = scaler.fit_transform(price_per_ping)
+train_label.insert(loc = 2, column = 'price_per_ping_log_sd', value = price_per_ping_sd)
+
+                   
+sns.distplot(price_per_ping_sd)
+plt.xlim(price_per_ping_sd.min(), price_per_ping_sd.max())
+plt.show()
+# ------------------------
 # =============================================================================
 
 
@@ -165,4 +211,7 @@ for column in int_columns_norm:
 # 儲存
 # =============================================================================
 data_features.to_csv('data/data_features2.csv', index = False, encoding = "big5")
+
+
+train_label.to_csv('data/train_label2.csv', index = False, encoding = "big5")
 # =============================================================================
