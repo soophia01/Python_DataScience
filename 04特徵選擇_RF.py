@@ -4,21 +4,21 @@ from sklearn.ensemble import ExtraTreesRegressor
 
 # read train data
 # =============================================================================
-data_features3 = pd.read_csv("data/data_features3.csv",
+df = pd.read_csv("data/data_features4.csv",
                           encoding = "big5")
 
 train_label = pd.read_csv("data/train_label.csv",
                           encoding = "big5")
 
 # 移除 key 跟 index 欄位
-data_features3 = data_features3.drop(columns=['Key', 'Index'])
+df = df.drop(columns=['Key', 'Index'])
 
 
 # train
 # -----------------------------
 # X
 # 把 train data 從 data_features2 抽出
-X_train = data_features3[0:46482]
+X_train = df[0:46482]
 
 # y
 y_train = train_label["price_per_ping"]
@@ -40,5 +40,3 @@ importances = model.feature_importances_
 selected_features = X_train.columns[importances > 0.05]
 
 print(selected_features)
-
-# Index(['土地', '土地移轉總面積(平方公尺)_log_2', '建物移轉總面積(平方公尺)_log', '都市土地使用分區','num_of_bus_stations_in_100m', 'low_use_electricity_log'])

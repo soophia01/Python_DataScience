@@ -3,42 +3,42 @@ from sklearn.preprocessing import LabelEncoder
 
 # read data
 # =============================================================================
-data_features2 = pd.read_csv("data/data_features2.csv",
+df = pd.read_csv("data/data_features2.csv",
                           encoding="big5")
 # =============================================================================
 
 
 # table
 # =============================================================================
-# columns = data_features2['建物型態']
+# columns = df['建物型態']
 # for var in columns:
-#     print(data_features2[var].value_counts())
+#     print(df[var].value_counts())
 # =============================================================================
 
 
 
 # 處理缺失值: 類別欄位
-# null_data_features2 = data_features2.isnull().sum()
+# null_df = df.isnull().sum()
 # =============================================================================
 
 # 出現次數最多的類別: '主要建材', '主要用途', '移轉層次'
 # ---------------------------------------
-null_columns = data_features2[['主要建材', '主要用途', '移轉層次']]
+null_columns = df[['主要建材', '主要用途', '移轉層次']]
 
 for column in null_columns:
     # 統計每個類別的出現次數
-    counts = data_features2[column].value_counts()
+    counts = df[column].value_counts()
     # 找出出現次數最多的類別
     most_common = counts.index[0]
     # 補
-    data_features2[column].fillna(most_common, inplace = True)
+    df[column].fillna(most_common, inplace = True)
 # ---------------------------------------
 
 
 # 新增"未知"欄位: '都市土地使用分區'
 # ---------------------------------------
 # 對缺失值補"unknown"
-data_features2['都市土地使用分區'].fillna('Unknown', inplace = True)
+df['都市土地使用分區'].fillna('Unknown', inplace = True)
 # ---------------------------------------
 # =============================================================================
 
@@ -46,22 +46,22 @@ data_features2['都市土地使用分區'].fillna('Unknown', inplace = True)
 
 # 儲存
 # =============================================================================
-data_features2.to_csv('data/data_features2.csv', index = False, encoding = "big5")
+df.to_csv('data/data_features2.csv', index = False, encoding = "big5")
 # =============================================================================
-data_features3 = data_features2
+df2 = df
 
 
 # one hot encoding
 # =============================================================================
-# data_features3 = pd.get_dummies(data_features3, columns=['都市土地使用分區'])
+# df2 = pd.get_dummies(df2, columns=['都市土地使用分區'])
 # =============================================================================
 
 
 
 # binary encoding
 # =============================================================================
-data_features3['建物現況格局-隔間'].replace(['有', '無'], [1,0], inplace = True)
-data_features3['有無管理組織'].replace(['有', '無'], [1,0], inplace = True)
+df2['建物現況格局-隔間'].replace(['有', '無'], [1,0], inplace = True)
+df2['有無管理組織'].replace(['有', '無'], [1,0], inplace = True)
 # =============================================================================
 
 
@@ -69,7 +69,7 @@ data_features3['有無管理組織'].replace(['有', '無'], [1,0], inplace = Tr
 # label encoding: '主要建材','主要用途','交易標的', '建物型態','移轉層次','鄉鎮市區','location_type','nearest_tarin_station'
 # =============================================================================
 le = LabelEncoder()
-labeled_data = data_features3[['主要建材',
+labeled_data = df2[['主要建材',
                               '主要用途',
                               '交易標的',
                               '建物型態',
@@ -86,7 +86,7 @@ labeled_data_columnName = labeled_data.columns.tolist()
 ## 把相同欄位名稱用轉換後的資料取代
 def replace_column_values(A, B, column_name):
   A[column_name] = B[column_name]
-replace_column_values(data_features3, labeled_data, labeled_data_columnName)
+replace_column_values(df2, labeled_data, labeled_data_columnName)
 # =============================================================================
 
 
@@ -115,7 +115,7 @@ replace_column_values(data_features3, labeled_data, labeled_data_columnName)
 #            # NaN: 0
 #            }
 # 
-# data_features3["主要建材"] = data_features2["主要建材"] .map(mapping)
+# df2["主要建材"] = df["主要建材"] .map(mapping)
 
 # =============================================================================
 
@@ -123,5 +123,5 @@ replace_column_values(data_features3, labeled_data, labeled_data_columnName)
 
 # 儲存
 # =============================================================================
-data_features3.to_csv('data/data_features3.csv', index = False, encoding = "big5")
+df2.to_csv('data/data_features3.csv', index = False, encoding = "big5")
 # =============================================================================

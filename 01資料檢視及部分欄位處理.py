@@ -7,8 +7,11 @@ import re
 train_feature = pd.read_csv("data/train_feature.csv",
                           encoding = "big5",
                            # dtype = object
-                          ) 
-                          
+                          )
+# train data label
+train_label = pd.read_csv("data/train_label.csv",
+                          encoding = "big5")
+                         
 # test data
 test_feature = pd.read_csv("data/test_feature.csv",
                           encoding = "big5")
@@ -98,8 +101,14 @@ for s in data_features['交易筆棟數']:
     numbers = re.findall(r'\d+', s)
     results.append(numbers)
 
-# 将结果转换成 DataFrame
+# 把结果轉換换成 DataFrame
 df = pd.DataFrame(results, columns=['土地', '建物', '車位'])
+
+# int
+column = ['土地', '建物', '車位']
+for c in column: 
+    df[c] = df[c].astype(int)
+
 
 # 把相同欄位名稱用轉換後的資料取代
 def replace_column_values(A, B, column_name):
@@ -145,7 +154,7 @@ data_features["交易月份"] = data_features["交易月份"].astype(int)
 # length_2_values = []
 # length_3_values = []
 # length_4_values = []
-# length_5_values = []
+# length_5_values = [
 
 # for key, value in data_features['建築完成年月'].items():
 #     if len(str(value)) == 2:
@@ -214,8 +223,10 @@ del col, columns, stat, stat_list
 # save
 data_summary = data_summary.to_csv('data/data_summary.csv', index = True, encoding = "big5")
 # =============================================================================
-
-
+# label的
+train_label["price_per_ping"].describe(include="all")
+numbers = ["1.89E+05", "3.18E+05", "0.00E+00", "1.25E+05", "1.70E+05", "2.25E+05", "6.27E+07"]
+numbers = [float(x) for x in numbers]
 
 # 再檢查一次缺失值
 null2_data_features = data_features.isnull().sum()
